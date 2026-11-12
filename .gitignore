@@ -1,0 +1,7 @@
+node_modules/
+*.p12
+*.mobileprovision
+*.txt
+certs/
+ios/App/build/
+.DS_Store

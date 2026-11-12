@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0e0e12">
+  <title>咸鱼影视</title>
+  <style>
+    :root {
+      --bg: #0e0e12;
+      --fg: #e8e8ea;
+      --accent: #ff5a5f;
+      --muted: #8a8a92;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif;
+      overflow: hidden;
+      -webkit-user-select: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    #webview {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #fff;
+      opacity: 0;
+      transition: opacity .3s ease;
+    }
+    #webview.ready { opacity: 1; }
+    /* 启动画面 */
+    #splash {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 20;
+      transition: opacity .4s ease;
+    }
+    #splash.hide { opacity: 0; pointer-events: none; }
+    #splash .logo {
+      width: 84px; height: 84px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #ff5a5f, #ff8a5f);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 40px;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 30px rgba(255,90,95,.35);
+    }
+    #splash .name { font-size: 20px; font-weight: 600; letter-spacing: 1px; }
+    #splash .sub { font-size: 12px; color: var(--muted); margin-top: 8px; }
+    #splash .spin {
+      width: 22px; height: 22px; margin-top: 28px;
+      border: 2px solid rgba(255,255,255,.15);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: rot 1s linear infinite;
+    }
+    @keyframes rot { to { transform: rotate(360deg); } }
+    /* 错误浮层 */
+    #error {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 30;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      text-align: center;
+    }
+    #error .icon { font-size: 52px; margin-bottom: 16px; }
+    #error .msg { font-size: 15px; color: var(--fg); line-height: 1.6; }
+    #error .retry {
+      margin-top: 24px;
+      padding: 11px 34px;
+      border-radius: 24px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="splash">
+    <div class="logo">🐟</div>
+    <div class="name">咸鱼影视</div>
+    <div class="sub">加载中…</div>
+    <div class="spin"></div>
+  </div>
+
+  <div id="error">
+    <div class="icon">⚠️</div>
+    <div class="msg" id="errmsg">加载失败，请检查网络后重试</div>
+    <button class="retry" onclick="location.reload()">重新加载</button>
+  </div>
+
+  <iframe id="webview" src="about:blank" allow="encrypted-media; autoplay; fullscreen; picture-in-picture; xr-spatial-tracking" allowfullscreen></iframe>
+
+  <script src="app.js"></script>
+</body>
+</html>

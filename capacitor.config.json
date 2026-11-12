@@ -1,0 +1,12 @@
+{
+  "appId": "app.beaver5383.otter7119",
+  "appName": "咸鱼影视",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  },
+  "ios": {
+    "contentInset": "always",
+    "backgroundColor": "#0e0e12"
+  }
+}
